@@ -26,6 +26,7 @@ namespace UniversalStationary.Migrations
                     Price = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Trendingproducts = table.Column<bool>(type: "bit", nullable: true),
                     NewArrival = table.Column<bool>(type: "bit", nullable: true),
+                    Rating = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FeaturedProduct = table.Column<bool>(type: "bit", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -33,6 +34,20 @@ namespace UniversalStationary.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_addproduct", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,11 +60,30 @@ namespace UniversalStationary.Migrations
                     gmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phonenumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    logofile = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    logofile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    sitebanners = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_logochanges", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,7 +112,7 @@ namespace UniversalStationary.Migrations
             migrationBuilder.InsertData(
                 table: "users",
                 columns: new[] { "Id", "Address", "City", "Created", "Email", "Gender", "Password", "PhoneNumber", "PostalCode", "ProfilePicture", "Role", "Updated", "UserName" },
-                values: new object[] { new Guid("252f5d49-4638-43cf-af9d-0947eeb7e9bd"), "Malir Karachi", "Karachi", new DateTime(2025, 1, 1, 13, 2, 16, 10, DateTimeKind.Local).AddTicks(8407), "superadmin@gmail.com", "Male", "$2a$11$vdCpayq7IKX384FeMDh8ueRi.g.k8QfQxkDyqQcuP5LJe71oid/de", "1234567890", "12345", "AllImages/userimage.png", "Admin", new DateTime(2025, 1, 1, 13, 2, 16, 10, DateTimeKind.Local).AddTicks(8428), "SuperAdmin" });
+                values: new object[] { new Guid("5ff71f55-7d0c-48ec-821c-f6359e4363aa"), "Malir Karachi", "Karachi", new DateTime(2025, 1, 20, 12, 28, 8, 189, DateTimeKind.Local).AddTicks(2890), "superadmin@gmail.com", "Male", "$2a$11$6Bodob5u4BtelAlcuXt5qekhma8DAbS.pOFSoIG8WPT0P2ERmLWVO", "1234567890", "12345", "AllImages/userimage.png", "Admin", new DateTime(2025, 1, 20, 12, 28, 8, 189, DateTimeKind.Local).AddTicks(2908), "SuperAdmin" });
         }
 
         /// <inheritdoc />
@@ -88,7 +122,13 @@ namespace UniversalStationary.Migrations
                 name: "addproduct");
 
             migrationBuilder.DropTable(
+                name: "CartItems");
+
+            migrationBuilder.DropTable(
                 name: "logochanges");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "users");

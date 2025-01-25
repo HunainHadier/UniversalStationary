@@ -13,10 +13,17 @@ namespace UniversalStationary.Models
 
         public DbSet<LogoChangeModel> logochanges { get; set; }
 
+        public DbSet<CartItem> CartItems { get; set; }
+
+
+        public DbSet<Order> Orders { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            var adminpassword = BCrypt.Net.BCrypt.HashPassword("SuperAmin!123");
+            var adminpassword = BCrypt.Net.BCrypt.HashPassword("SuperAmin123!");
             modelBuilder.Entity<Users>().HasData(new Users
             {
                 Id = Guid.NewGuid(),

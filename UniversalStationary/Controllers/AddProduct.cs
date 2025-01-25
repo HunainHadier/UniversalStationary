@@ -66,9 +66,13 @@ namespace UniversalStationary.Controllers
                     Price = model.Price,
                     Discount = model.Discount,
                     Stock = model.Stock,
+                    Rating = model.Rating,
                     Trendingproducts = model.Trendingproducts,
                     FeaturedProduct = model.FeaturedProduct,
                     NewArrival = model.NewArrival,
+                    
+                   
+                    
 
 
                 };
@@ -298,14 +302,6 @@ namespace UniversalStationary.Controllers
 
 
 
-
-
-
-
-
-
-
-
         [HttpGet("SearchProduct")]
         public async Task<IActionResult> SearchProducts(
     [FromQuery] string productName = null)
@@ -332,6 +328,25 @@ namespace UniversalStationary.Controllers
 
             return Ok(new { message = "Products retrieved successfully", products });
         }
+
+
+
+
+        [HttpGet("GetProductById/{id}")]
+        public async Task<IActionResult> GetProductById(Guid id)
+        {
+            var product = await _dbContext.addproduct.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound(new { message = "Product not found" });
+            }
+            return Ok(product);
+        }
+
+
+
+
+
 
 
 

@@ -49,6 +49,9 @@ namespace UniversalStationary.Migrations
                     b.Property<string>("Price")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Stock")
                         .HasColumnType("nvarchar(max)");
 
@@ -70,6 +73,26 @@ namespace UniversalStationary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("addproduct");
+                });
+
+            modelBuilder.Entity("UniversalStationary.Models.CartItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("UniversalStationary.Models.LogoChangeModel", b =>
@@ -102,6 +125,43 @@ namespace UniversalStationary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("logochanges");
+                });
+
+            modelBuilder.Entity("UniversalStationary.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("UniversalStationary.Models.Users", b =>
@@ -153,18 +213,18 @@ namespace UniversalStationary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("589a5f94-fa13-4d88-b261-7acdd0305ebd"),
+                            Id = new Guid("5ff71f55-7d0c-48ec-821c-f6359e4363aa"),
                             Address = "Malir Karachi",
                             City = "Karachi",
-                            Created = new DateTime(2025, 1, 2, 21, 56, 28, 761, DateTimeKind.Local).AddTicks(2908),
+                            Created = new DateTime(2025, 1, 20, 12, 28, 8, 189, DateTimeKind.Local).AddTicks(2890),
                             Email = "superadmin@gmail.com",
                             Gender = "Male",
-                            Password = "$2a$11$DmpAD2HB8yOn8J9UPZ5Ot.43fyaMnqWMgr.cHUJbW6/AxWSl2Q9i2",
+                            Password = "$2a$11$6Bodob5u4BtelAlcuXt5qekhma8DAbS.pOFSoIG8WPT0P2ERmLWVO",
                             PhoneNumber = "1234567890",
                             PostalCode = "12345",
                             ProfilePicture = "AllImages/userimage.png",
                             Role = "Admin",
-                            Updated = new DateTime(2025, 1, 2, 21, 56, 28, 761, DateTimeKind.Local).AddTicks(2939),
+                            Updated = new DateTime(2025, 1, 20, 12, 28, 8, 189, DateTimeKind.Local).AddTicks(2908),
                             UserName = "SuperAdmin"
                         });
                 });

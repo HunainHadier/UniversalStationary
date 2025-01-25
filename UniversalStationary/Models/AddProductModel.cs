@@ -24,6 +24,8 @@
 
         public bool? NewArrival { get; set; } = true;
 
+        public string? Rating { get; set; }
+
         public bool? FeaturedProduct { get; set; } = true;
 
         public DateTime? Created { get; set; } = DateTime.Now;
